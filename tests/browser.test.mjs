@@ -61,3 +61,7 @@ test('optional audio is silent by default, synthesizes effects after consent and
  h.c.AudioContext=class{constructor(){contexts++;this.sampleRate=8000;this.currentTime=0;this.state='running';this.destination={};}async resume(){}createGain(){return {gain:parameter(),connect(){}}}createBuffer(channels,length){return {getChannelData:()=>new Float32Array(length)}}createBufferSource(){return {connect(){},start(){}}}createBiquadFilter(){return {frequency:parameter(),connect(){}}}createOscillator(){tones++;return {frequency:parameter(),connect(){},start(){},stop(){}}}};
  h.e.local.onclick();assert.equal(contexts,0);await h.e.sound.onclick();assert.equal(h.run('soundEnabled'),true);assert.equal(contexts,1);h.e.fire.onclick();assert.ok(tones>0);await h.e.battleSound.onclick();assert.equal(h.run('soundEnabled'),false);const mutedTones=tones;for(let i=0;i<75;i++)h.tick();assert.equal(tones,mutedTones);
 });
+
+test('throttled visible frames do not stretch a three-second volley indefinitely',()=>{
+ const h=harness(fakeRTC());h.e.local.onclick();h.e.fire.onclick();h.tick(1000);h.tick(1000);h.tick(1000);h.tick(600);assert.equal(h.get().animating,false);assert.equal(h.e.handoff.hidden,false);
+});

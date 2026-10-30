@@ -297,7 +297,7 @@ function playSound(kind){if(!soundEnabled||!audio||audio.state!=='running')retur
 function queueDraw(){if(!renderQueued){renderQueued=true;requestAnimationFrame(draw);}}
 function draw(now){renderQueued=false;clearTimeout(sceneTimer);if(!match||$('battle').hidden)return;
   if(document.hidden){lastFrame=now;return;}
-  if(animation&&lastFrame&&now-lastFrame>100)animation.start+=now-lastFrame-34;lastFrame=now;
+  lastFrame=now;
   const c=$('arena'),r=c.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);if(!r.width||!r.height)return;
   if(c.width!==Math.round(r.width*dpr)||c.height!==Math.round(r.height*dpr)){c.width=Math.round(r.width*dpr);c.height=Math.round(r.height*dpr);}
   ctx.setTransform(c.width/960,0,0,c.height/450,0,0);
