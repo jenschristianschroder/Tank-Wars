@@ -8,7 +8,11 @@ A self-contained, turn-based artillery game in a single `index.html`. Hosted on 
 - **Pass & play:** Two players alternate on one phone. No network required after loading.
 - **Practice solo:** Play against a bot. No network required after loading.
 
-The tanks stay still. Players take turns choosing angle and power, with no timer. Every shot uses a smooth three-second animation and a gentle impact fade. The next turn waits for the animation to finish on both phones. Reduced-motion preferences hide the moving projectile. Switching tabs pauses the animation rather than fast-forwarding it when you return.
+Three shared battlefield settings — Cinder Valley, Moonlit Pass and Highland Dawn — feature layered mountains, forest silhouettes, mist, detailed tracked tanks, flags and damage smoke. Cannon recoil, muzzle flashes, shell trails, drifting dust, impact debris and floating armor damage add atmosphere without screen shake. The host and guest see the same setting, derived from the shared match.
+
+**Sound off/on** enables locally synthesized wind, cannon reports, impacts and a victory chord. Sound starts muted and fades out while the tab is hidden. **Expand** fills the screen with the battlefield and controls, with a layout fallback when native fullscreen is unavailable. All graphics and audio are generated in the page, with no asset downloads.
+
+The tanks stay still. Players take turns choosing angle and power, with no timer. Every shot uses a smooth three-second animation and a gentle impact fade. The next turn waits for the animation to finish on both phones. Reduced-motion preferences hide the moving projectile and disable continuous ambient motion and drifting impact smoke. Switching tabs pauses the animation rather than fast-forwarding it when you return.
 
 ## Connections and limitations
 
