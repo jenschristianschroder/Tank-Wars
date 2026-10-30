@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101b23"><meta name="apple-mobile-web-app-capable" content="yes"><title>Tank Wars — Pocket artillery</title><meta name="description" content="A little terrain. A big rivalry. Challenge a friend to a two-phone artillery duel."><style>
+:root{color-scheme:dark;--bg:#101b23;--panel:#1b2a34;--ink:#eff1df;--muted:#9bb0b4;--lime:#d8f284;--line:#35444a;--coral:#ff937d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,sans-serif}button,input{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:12px;padding:13px 18px;font-weight:700;min-height:46px;touch-action:manipulation}button:hover{border-color:var(--lime)}button:disabled{opacity:.45;cursor:default}.primary{background:var(--lime);border-color:var(--lime);color:#192629}.ghost{background:transparent}input[type=text]{width:100%;padding:14px;border:1px solid var(--line);border-radius:12px;background:#101b23;color:var(--ink);text-transform:uppercase;letter-spacing:.18em}button:focus-visible,input:focus-visible{outline:3px solid var(--coral);outline-offset:3px}.app{max-width:1100px;margin:auto;padding:24px 24px calc(18px + env(safe-area-inset-bottom))}header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.brand{font-size:20px;font-weight:900;letter-spacing:-.05em}.brand span{color:var(--lime)}.tag{font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}h1{font-size:clamp(40px,7vw,76px);line-height:1;letter-spacing:-.06em;margin:20px 0}p{color:var(--muted);line-height:1.6}.intro{display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center}.intro-art{position:relative;height:270px;border-radius:24px;overflow:hidden;background:linear-gradient(#253d4a,#657e82)}.sun{position:absolute;right:50px;top:30px;width:72px;height:72px;border-radius:50%;background:#e7eac6}.hill{position:absolute;bottom:-60px;left:-10%;width:120%;height:200px;border-radius:50%;background:#415f55;transform:rotate(-8deg)}.hill.front{bottom:-110px;background:#afbc80;transform:rotate(14deg)}.tank-art{position:absolute;bottom:53px;left:55px;font-size:75px;transform:rotate(-8deg);filter:grayscale(1) sepia(1)}.arc{position:absolute;width:170px;height:100px;border-top:3px dashed #d8f284;border-radius:50%;left:140px;top:65px;transform:rotate(-15deg)}.eyebrow{color:var(--lime);font-size:11px;font-weight:800;letter-spacing:.18em}.lobby-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}.card{background:var(--panel);padding:24px;border:1px solid var(--line);border-radius:18px}.card h2{margin:0 0 8px;font-size:20px;letter-spacing:-.03em}.card p{font-size:14px;margin:0 0 18px}.join-row{display:flex;gap:8px}.join-row input{min-width:0}.steps{display:flex;gap:20px;font-size:12px;color:var(--muted);margin-top:24px;flex-wrap:wrap}.steps b{color:var(--lime)}#battle[hidden],#lobby[hidden],[hidden]{display:none!important}.battle-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}.room-code{font-family:monospace;letter-spacing:.14em;color:var(--lime)}.connection{font-size:11px;color:var(--muted)}.arena{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#273f4c}canvas{display:block;width:100%;height:100%;min-height:0}.arena{height:clamp(190px,42dvh,420px)}.scoreboard{position:absolute;left:18px;right:18px;top:16px;display:flex;justify-content:space-between;pointer-events:none}.fighter{width:130px;font-size:12px;font-weight:800}.fighter:last-child{text-align:right}.health{height:5px;background:#15242c88;border-radius:10px;margin-top:7px;overflow:hidden}.health i{display:block;background:var(--lime);height:100%;transition:width .5s}.fighter:last-child i{background:var(--coral)}.wind{color:#e4e7d6;font-size:11px;text-align:center;font-weight:700}.status{font-size:18px;font-weight:800;letter-spacing:-.03em;margin:16px 0 4px}.substatus{font-size:12px;color:var(--muted);min-height:18px}.controls{display:grid;grid-template-columns:1fr 1fr 160px;align-items:center;gap:25px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}.control-head{display:flex;justify-content:space-between;font-size:12px;font-weight:700}.control-head output{color:var(--lime);font-size:20px;font-weight:800}input[type=range]{accent-color:var(--lime);width:100%;height:36px;cursor:pointer;margin:0}.fire{background:var(--coral);color:#15222a;border-color:var(--coral);font-size:17px;min-height:58px}.foot{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--muted);margin-top:14px}.notice{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#15242c;padding:12px 20px;border-radius:12px;z-index:10;width:max-content;max-width:90vw;font-size:13px;box-shadow:0 8px 40px #0008}.invite{margin-top:12px;display:flex;gap:8px;align-items:center}.invite p{margin:0;font-size:12px}.instructions{font-size:12px;color:var(--muted);margin-top:12px}#rematch{margin-top:10px} @media(max-width:600px){.app{padding:16px 16px calc(12px + env(safe-area-inset-bottom))}header{margin-bottom:16px}.intro{grid-template-columns:1fr;gap:18px}.intro-art{height:150px}.tank-art{bottom:14px;left:35px;font-size:60px}.hill{bottom:-95px}.hill.front{bottom:-145px}.arc{top:30px;left:105px}h1{font-size:46px;margin:10px 0}.intro p{font-size:14px;margin:0}.lobby-cards{grid-template-columns:1fr;margin-top:18px;gap:10px}.card{padding:17px}.card p{margin-bottom:12px}.steps{gap:10px;margin-top:16px}.controls{grid-template-columns:1fr 1fr;gap:8px 20px;padding:14px;margin-top:12px}.fire{grid-column:1/-1;min-height:48px}.arena{height:37dvh;min-height:180px}.scoreboard{left:10px;right:10px;top:10px}.fighter{width:90px;font-size:10px}.status{margin-top:10px;font-size:17px}.battle-top button{padding:8px 10px;font-size:12px;min-height:38px}.foot{font-size:10px}.tag{font-size:9px}.invite{flex-wrap:wrap}.instructions{margin:8px 0} }@media(max-height:500px) and (orientation:landscape){.app{padding:8px 16px}header{margin-bottom:5px}.battle-top{margin-bottom:5px}.arena{height:48dvh;min-height:120px}.status{margin:5px 0}.controls{grid-template-columns:1fr 1fr 130px;padding:8px 12px;margin-top:6px;gap:20px}.fire{grid-column:auto;min-height:42px}.foot,.instructions{display:none}.scoreboard{top:8px}}
+
+textarea{display:block;width:100%;resize:vertical;min-height:100px;max-height:180px;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:12px;color:var(--ink);font:12px/1.5 monospace;overflow-wrap:anywhere}textarea:focus-visible{outline:3px solid var(--coral)}.pair{max-width:720px;margin:20px auto}.pair h1{font-size:36px}.pair h2{font-size:17px}.pair p,.pair label{font-size:13px;color:var(--muted)}.pair .row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.pair label{display:block;margin:12px 0 7px}.pair-status{padding:12px;border:1px solid var(--line);border-radius:10px;color:var(--lime)!important}.network-option{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}.network-option input{margin-right:8px}.local-modes{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.arena{height:clamp(230px,42dvh,420px)}.reduced-info{font-size:11px;color:var(--muted)}.card button{margin-bottom:6px}.intro-art .tank-art{font-size:initial;filter:none;width:95px}.dialog{position:fixed;inset:0;background:#101b23cc;z-index:9;display:grid;place-items:center;padding:20px}.dialog .card{max-width:360px;text-align:center}.dialog h2{font-size:26px}.small{font-size:11px!important}.pair [hidden]{display:none!important}@media(prefers-reduced-motion:reduce){.health i{transition:none}}@media(max-width:600px){.pair{margin-top:0}.pair h1{font-size:30px}.arena{height:35dvh;min-height:195px}.controls{margin-top:10px}.pair .card{padding:15px}.pair textarea{min-height:88px}.tag{letter-spacing:.08em}}@media(max-height:500px) and (orientation:landscape){.arena{height:45dvh;min-height:130px}}
+</style></head><body><main class="app"><header><div class="brand">TANK<span>WARS</span><span style="font-size:12px;margin-left:8px">↗</span></div><div class="tag">No rush. Take your shot.</div></header>
+<section id="lobby"><div class="intro"><div><div class="eyebrow">TWO TANKS. ONE WINNER.</div><h1>A little terrain.<br>A big rivalry.</h1><p>A calm, turn-based artillery duel.<br>Play on two phones, entirely in your browsers.</p></div><div class="intro-art" aria-hidden="true"><div class="sun"></div><div class="hill"></div><div class="hill front"></div><div class="arc"></div><div class="tank-art"><svg viewBox="0 0 100 60"><g fill="#d8f284"><rect x="10" y="32" width="80" height="22" rx="11" fill="#1c2d32"/><rect x="15" y="23" width="70" height="22" rx="6"/><path d="M35 23a15 15 0 0 1 30 0z"/><path d="M51 17 88 1l4 8-37 16z"/></g><g fill="#41584e"><circle cx="26" cy="43" r="5"/><circle cx="43" cy="43" r="5"/><circle cx="60" cy="43" r="5"/><circle cx="77" cy="43" r="5"/></g></svg></div></div></div>
+<div class="lobby-cards"><div class="card"><h2>Two phones. Direct duel. ↗</h2><p>Exchange an invite and reply code. Once connected, your browsers send turns directly to each other.</p><button id="host" class="primary">Create invite</button> <button id="guest">Join a friend</button><div class="network-option"><label><input id="assist" type="checkbox">Internet assist (public STUN)</label><p class="small" style="margin:6px 0 0">Off: no connection services; try the same Wi-Fi or hotspot. On: helps across networks, but some networks still block direct play. No relay or game server.</p></div></div><div class="card"><h2>Stay on this phone</h2><p>Practice against Ember or pass the phone between two players. No connection needed after loading.</p><div class="local-modes"><button id="practice" class="primary">Practice solo</button><button id="local">Pass & play</button></div><p class="small" style="margin:12px 0 0">No timer, no moving targets. Aim at your own pace.</p></div></div><div class="steps"><span><b>01</b> Pick your angle</span><span><b>02</b> Set the power</span><span><b>03</b> Watch your shot land</span></div><p class="instructions">One self-contained page. No accounts, rooms, or multiplayer website. Refreshing ends a direct duel.</p></section>
+<section id="pair" class="pair" hidden><button id="pairBack" class="ghost">← Back</button><h1 id="pairTitle">Connect two phones</h1><p id="pairIntro"></p><div class="card"><div id="outBox" hidden><label id="outLabel" for="outCode">Your connection code</label><textarea id="outCode" readonly aria-label="Your connection code" spellcheck="false"></textarea><div class="row"><button id="copy" class="primary">Copy code</button><button id="share">Share code ↗</button></div></div><label id="inLabel" for="inCode">Paste your friend's code</label><textarea id="inCode" placeholder="TW1.…" autocomplete="off" spellcheck="false" aria-label="Friend's connection code"></textarea><div class="row"><button id="connect" class="primary">Continue</button></div><p id="pairStatus" class="pair-status" role="status" aria-live="polite"></p><p class="small">Exchange codes through your usual messaging app, then return here. Keep both tabs open. Share codes only with your opponent; they contain connection details. If pairing fails, try the same Wi-Fi or hotspot, or start again with Internet assist enabled on both phones.</p></div></section>
+<section id="battle" hidden><div class="battle-top"><div><span id="roomLabel" class="room-code"></span><div id="connection" class="connection" role="status"></div></div><button id="leave" class="ghost">Leave</button></div><div class="arena"><canvas id="arena" aria-label="Artillery battlefield with two stationary tanks and destructible hills"></canvas><div class="scoreboard"><div class="fighter"><span id="p0">MOSS</span> <span id="hp0">100</span><div class="health"><i id="bar0"></i></div></div><div class="wind" id="wind"></div><div class="fighter"><span id="p1">EMBER</span> <span id="hp1">100</span><div class="health"><i id="bar1"></i></div></div></div></div><div id="status" class="status" role="status" aria-live="polite"></div><div id="substatus" class="substatus"></div><div class="controls"><label><span class="control-head"><span>ANGLE</span><output id="angleValue">45°</output></span><input id="angle" aria-label="Firing angle" type="range" min="5" max="85" value="45"></label><label><span class="control-head"><span>POWER</span><output id="powerValue">55%</output></span><input id="power" aria-label="Firing power" type="range" min="10" max="100" value="55"></label><button class="fire" id="fire">Fire shot ↗</button></div><button id="rematch" class="primary" hidden>Play again</button><div class="foot"><span id="turnLabel"></span><span>Angle is measured toward your opponent.</span></div></section>
+<div id="handoff" class="dialog" hidden><div class="card"><div class="eyebrow">PASS THE PHONE</div><h2 id="handoffTitle"></h2><p>Take your time. Your tank is ready.</p><button id="takeTurn" class="primary">Ready to aim</button></div></div>
+<div id="exitDialog" class="dialog" hidden><div class="card"><h2>Leave this duel?</h2><p>The connection and current battle will end.</p><button id="confirmLeave">Leave duel</button> <button id="cancelLeave" class="primary">Keep playing</button></div></div>
+<div id="notice" class="notice" role="alert" hidden></div></main>
+<script id="rules">
+function newGame(random = Math.random) {
+  const phase=random()*6.28;
+  const terrain=Array.from({length:241},(_,i)=>290+Math.sin(i/29+phase)*38+Math.sin(i/13+phase)*13);
+  return {terrain,tanks:[{x:125,hp:100},{x:835,hp:100}],turn:0,wind:Math.round(random()*20-10),round:1,winner:null,shot:null};
+}
+function fire(game, angle, power) {
+  const g=structuredClone(game),p=g.turn,t=g.tanks[p],rad=angle*Math.PI/180;
+  const ground=x=>g.terrain[Math.max(0,Math.min(240,Math.round(x/4)))];
+  let x=t.x+(p===0?1:-1)*Math.cos(rad)*22,y=ground(t.x)-13-Math.sin(rad)*22;
+  let vx=(p===0?1:-1)*Math.cos(rad)*power*5,vy=-Math.sin(rad)*power*5;
+  const path=[[x,y]];
+  let impact=false;
+  for(let i=0;i<900;i++) {
+    vx+=g.wind*.018;vy+=100*.025;x+=vx*.025;y+=vy*.025;
+    if(i%3===0)path.push([Math.round(x),Math.round(y)]);
+    if(x<0||x>960||y>450)break;
+    if(g.tanks.some((a,j)=>j!==p&&Math.hypot(x-a.x,y-(ground(a.x)-10))<16)||y>=ground(x)){impact=true;break;}
+  }
+  path.push([Math.round(x),Math.round(y)]);
+  const damage=[0,0];
+  if(impact){
+    g.tanks.forEach((a,j)=>{const d=Math.hypot(x-a.x,y-(ground(a.x)-8));damage[j]=Math.max(0,Math.round(65*(1-d/65)));a.hp=Math.max(0,a.hp-damage[j]);});
+    for(let i=0;i<g.terrain.length;i++){const dx=i*4-x;if(Math.abs(dx)<36)g.terrain[i]=Math.min(424,Math.max(g.terrain[i],y+Math.sqrt(36*36-dx*dx)));}
+  }
+  g.shot={path,damage,impact,player:p,angle,power};
+  if(g.tanks.every(a=>a.hp===0))g.winner=2;
+  else if(g.tanks[0].hp===0)g.winner=1;
+  else if(g.tanks[1].hp===0)g.winner=0;
+  g.turn=1-p;g.round++;return g;
+}
+function newMatch(random=Math.random){return {revision:0,game:newGame(random),ready:[true,true],votes:[]}}
+function applyShot(match,player,action){
+  if(!match||!Number.isInteger(player)||player<0||player>1||match.game.turn!==player||match.game.winner!==null||!match.ready.every(Boolean)||action.revision!==match.revision)throw Error('Wait for your turn and let the previous shot finish.');
+  if(!Number.isFinite(action.angle)||action.angle<5||action.angle>85||!Number.isFinite(action.power)||action.power<10||action.power>100)throw Error('Invalid angle or power.');
+  return {revision:match.revision+1,game:fire(match.game,action.angle,action.power),ready:[false,false],votes:[]};
+}
+function markReady(match,player,revision){if(revision!==match.revision||![0,1].includes(player))return match;const ready=[...match.ready];ready[player]=true;return {...match,ready}}
+function voteRematch(match,player){
+  if(match.game.winner===null||![0,1].includes(player))throw Error('Finish this battle first.');
+  const votes=[...new Set([...match.votes,player])];return votes.length===2?{...newMatch(),revision:match.revision+1}:{...match,votes};
+}
+function validSnapshot(m){
+  const g=m?.game;
+  if(!m||!Number.isSafeInteger(m.revision)||m.revision<0||!Array.isArray(m.ready)||m.ready.length!==2||!m.ready.every(v=>typeof v==='boolean')||!Array.isArray(m.votes)||m.votes.length>2||!m.votes.every(v=>v===0||v===1))return false;
+  if(!g||![0,1].includes(g.turn)||![null,0,1,2].includes(g.winner)||!Number.isSafeInteger(g.round)||g.round<1||!Number.isFinite(g.wind)||Math.abs(g.wind)>10)return false;
+  if(!Array.isArray(g.terrain)||g.terrain.length!==241||!g.terrain.every(v=>Number.isFinite(v)&&v>=0&&v<=450)||!Array.isArray(g.tanks)||g.tanks.length!==2||!g.tanks.every((t,i)=>t.x===[125,835][i]&&Number.isFinite(t.hp)&&t.hp>=0&&t.hp<=100))return false;
+  if(g.shot===null)return true;
+  return !!(g.shot&&Array.isArray(g.shot.path)&&g.shot.path.length>=2&&g.shot.path.length<=1000&&g.shot.path.every(p=>Array.isArray(p)&&p.length===2&&p.every(v=>Number.isFinite(v)&&Math.abs(v)<100000))&&Array.isArray(g.shot.damage)&&g.shot.damage.length===2&&g.shot.damage.every(v=>Number.isFinite(v)&&v>=0&&v<=100));
+}
+function encodeSignal(description,id,assist){return 'TW1.'+btoa(JSON.stringify({v:1,id,assist,type:description.type,sdp:description.sdp}));}
+function decodeSignal(input,expectedType){
+  const text=input.trim();if(text.length>60000||!text.startsWith('TW1.'))throw Error('Paste the complete TW1 connection code.');
+  let data;try{data=JSON.parse(atob(text.slice(4)))}catch{throw Error('That connection code is incomplete or damaged.');}
+  if(data?.v!==1||data.type!==expectedType||typeof data.id!=='string'||!/^[a-zA-Z0-9-]{16,64}$/.test(data.id)||typeof data.assist!=='boolean'||typeof data.sdp!=='string'||data.sdp.length>40000||!data.sdp.startsWith('v=0'))throw Error('Use your friend’s '+expectedType+' code from this version of Tank Wars.');
+  return data;
+}
+globalThis.TankRules=Object.freeze({newGame,fire,newMatch,applyShot,markReady,voteRematch,validSnapshot,encodeSignal,decodeSignal});
+</script>
+<script id="app">
+'use strict';
+const $=id=>document.getElementById(id), names=['Moss','Ember'];
+const SHOT_MS=3000,IMPACT_MS=550,REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let mode=null,me=0,match=null,animation=null,pc=null,channel=null,matchId=null,pairRole=null,pairBusy=false,networkAssist=false,toastTimer,aiTimer,pairTimer,generation=0,connected=false,lastFrame=0,renderQueued=false,lastAim=[{angle:45,power:55},{angle:45,power:55}];
+const ctx=$('arena').getContext('2d');
+function toast(text){$('notice').textContent=text;$('notice').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('notice').hidden=true,5000)}
+function show(id){for(const section of ['lobby','pair','battle'])$(section).hidden=section!==id;}
+function status(text){$('pairStatus').textContent=text;}
+function send(message){if(channel?.readyState!=='open')throw Error('Your opponent is disconnected. Start a new connection.');channel.send(JSON.stringify(message));}
+function dispose(){generation++;clearTimeout(aiTimer);clearTimeout(pairTimer);channel?.close();pc?.close();channel=null;pc=null;connected=false;matchId=null;animation=null;pairBusy=false;$('host').disabled=false;$('connect').disabled=false;}
+function goHome(){dispose();match=null;mode=null;$('handoff').hidden=true;$('exitDialog').hidden=true;show('lobby');}
+function setPairBusy(value){pairBusy=value;$('connect').disabled=value;$('pairBack').disabled=false;}
+function makePeer(assist){
+  if(!globalThis.RTCPeerConnection)throw Error('This browser does not support direct connections. Try a current browser, solo, or Pass & play.');
+  const p=new RTCPeerConnection({iceServers:assist?[{urls:'stun:stun.l.google.com:19302'}]:[]});
+  p.onconnectionstatechange=()=>{if(p!==pc)return;if(p.connectionState==='connected')connected=true;
+    if(['disconnected','failed','closed'].includes(p.connectionState)){connected=false;status('Connection lost. Return and exchange fresh codes to reconnect.');if(match)update();}
+    if(p.connectionState==='connected'&&match)update();};
+  p.ondatachannel=e=>{if(p===pc)bindChannel(e.channel);};
+  return p;
+}
+function gather(p){return new Promise((resolve,reject)=>{
+  if(p.iceGatheringState==='complete')return resolve();
+  const timeout=setTimeout(()=>{cleanup();reject(Error('Connection discovery timed out. Go back and try again.'));},15000);
+  function cleanup(){clearTimeout(timeout);p.removeEventListener('icegatheringstatechange',check);p.removeEventListener('connectionstatechange',closed);}
+  function closed(){if(p.connectionState==='closed'){cleanup();reject(Error('Pairing cancelled.'));}}
+  function check(){if(p.iceGatheringState==='complete'){cleanup();resolve();}}
+  p.addEventListener('icegatheringstatechange',check);p.addEventListener('connectionstatechange',closed);
+});}
+function startTimeout(){clearTimeout(pairTimer);pairTimer=setTimeout(()=>{if(!connected)status('Still not connected. Try the same Wi-Fi or hotspot. If needed, go back and enable Internet assist on both phones. Some networks require a relay, which this self-contained game does not use.');},30000);}
+function bindChannel(c){
+  if(channel&&channel!==c){c.close();return;}channel=c;
+  c.onopen=()=>{if(c!==channel)return;connected=true;clearTimeout(pairTimer);mode='peer';me=pairRole==='host'?0:1;
+    if(me===0){match=newMatch();enterBattle();broadcast();}else{status('Connected. Waiting for the battlefield…');send({type:'hello'});}};
+  c.onclose=()=>{if(c!==channel)return;connected=false;status('Connection closed. Exchange fresh codes to start again.');if(match)update();};
+  c.onerror=()=>{if(c===channel){connected=false;status('Direct connection failed. Try the same network or create fresh codes.');if(match)update();}};
+  c.onmessage=e=>{if(c!==channel||typeof e.data!=='string'||e.data.length>64000)return;
+    try{const message=JSON.parse(e.data);
+      if(me===0){
+        if(message.type==='hello'){broadcast();return;}
+        if(!match)return;
+        if(message.type==='action'){const next=applyShot(match,1,message);accept(next);broadcast();}
+        else if(message.type==='ready'){match=markReady(match,1,message.revision);broadcast();update();}
+        else if(message.type==='rematch'){if(message.revision!==match.revision)return;const next=voteRematch(match,1);accept(next);broadcast();}
+      }else if(message.type==='snapshot'){
+        if(!validSnapshot(message.match)||match&&message.match.revision<match.revision)throw Error('Invalid or stale match update.');
+        const initial=!match;accept(message.match);if(initial)enterBattle();
+      }
+    }catch(e){if(me===0){try{send({type:'snapshot',match})}catch{}}else toast('Could not read a match update. Reconnect if play stops.');}
+  };
+}
+function broadcast(){if(channel?.readyState==='open')send({type:'snapshot',match});}
+$('host').onclick=async()=>{
+  dispose();pairRole='host';networkAssist=$('assist').checked;mode=null;match=null;show('pair');$('pairTitle').textContent='Invite your opponent';$('pairIntro').textContent='1. Send your invite code. 2. Your friend sends a reply. 3. Paste their reply below.';$('outBox').hidden=true;$('inCode').value='';$('outCode').value='';$('inLabel').textContent='3 · Paste your friend’s reply code';$('outLabel').textContent='1 · Send this invite code to your friend';$('connect').textContent='Connect phones';status('Preparing your invite…');setPairBusy(true);const gen=generation;
+  try{matchId=crypto.randomUUID();pc=makePeer(networkAssist);const p=pc;bindChannel(p.createDataChannel('tank-wars',{ordered:true}));await p.setLocalDescription(await p.createOffer());await gather(p);if(gen!==generation)return;$('outCode').value=encodeSignal(p.localDescription,matchId,networkAssist);$('outBox').hidden=false;status('Invite ready. Keep this tab open while your friend prepares their reply.');}
+  catch(e){if(gen===generation)status(e.message);}finally{if(gen===generation)setPairBusy(false);}
+};
+$('guest').onclick=()=>{dispose();mode=null;match=null;pairRole='guest';show('pair');$('pairTitle').textContent='Join your friend';$('pairIntro').textContent='1. Paste their invite. 2. Send your reply code back. Keep both tabs open.';$('outBox').hidden=true;$('inCode').value='';$('outCode').value='';$('inLabel').textContent='1 · Paste your friend’s invite code';$('outLabel').textContent='2 · Send this reply code to your friend';$('connect').textContent='Create reply';status('Waiting for your friend’s invite.');};
+$('connect').onclick=async()=>{
+  if(pairBusy)return;setPairBusy(true);const gen=generation;
+  try{
+    if(pairRole==='host'){
+      if(!pc||pc.signalingState!=='have-local-offer')throw Error('Go back and create a fresh invite first.');
+      const data=decodeSignal($('inCode').value,'answer');if(data.id!==matchId)throw Error('This reply belongs to another invite. Ask your friend to use your latest invite.');
+      await pc.setRemoteDescription({type:data.type,sdp:data.sdp});if(gen!==generation)return;status('Connecting directly to your friend…');startTimeout();
+    }else{
+      if(pc)throw Error('Reply already created. Send it to your friend, or go back to start again.');
+      const data=decodeSignal($('inCode').value,'offer');if(data.assist&&!$('assist').checked)throw Error('This invite uses Internet assist. Go back, enable it, then Join a friend again.');
+      networkAssist=data.assist;matchId=data.id;pc=makePeer(networkAssist);const p=pc;await p.setRemoteDescription({type:data.type,sdp:data.sdp});await p.setLocalDescription(await p.createAnswer());await gather(p);if(gen!==generation)return;$('outCode').value=encodeSignal(p.localDescription,matchId,networkAssist);$('outBox').hidden=false;status('Reply ready. Send it back to the host. The battle opens when they paste it.');startTimeout();
+    }
+  }catch(e){if(gen===generation)status(e.message);}finally{if(gen===generation)setPairBusy(false);}
+};
+$('pairBack').onclick=goHome;
+async function copyCode(){try{await navigator.clipboard.writeText($('outCode').value);toast('Copied. Send this code to your opponent.');}catch{$('outCode').focus();$('outCode').select();toast('Select and copy the code, then send it to your opponent.');}}
+$('copy').onclick=copyCode;$('share').onclick=async()=>{if(navigator.share)try{await navigator.share({title:'Tank Wars '+(pairRole==='host'?'invite':'reply'),text:$('outCode').value});return}catch(e){if(e.name==='AbortError')return;}await copyCode();};
+function enterBattle(){show('battle');$('roomLabel').textContent=mode==='peer'?'DIRECT DUEL':mode==='local'?'PASS & PLAY':'PRACTICE RANGE';lastAim=[{angle:45,power:55},{angle:45,power:55}];loadAim();update();queueDraw();}
+function localStart(type){dispose();mode=type;me=0;match=newMatch();enterBattle();}
+$('practice').onclick=()=>localStart('solo');$('local').onclick=()=>localStart('local');
+$('leave').onclick=()=>{$('exitDialog').hidden=false;};$('cancelLeave').onclick=()=>$('exitDialog').hidden=true;$('confirmLeave').onclick=goHome;
+function loadAim(){const player=mode==='local'?match.game.turn:me;const aim=lastAim[player];$('angle').value=aim.angle;$('power').value=aim.power;$('angleValue').textContent=aim.angle+'°';$('powerValue').textContent=aim.power+'%';}
+function accept(next){
+  const previous=match;const changed=!previous||next.revision>previous.revision;match=next;
+  if(changed&&previous&&next.game.shot&&next.game.round>previous.game.round){animation={before:previous.game,after:next.game,path:next.game.shot.path,start:performance.now(),hiddenAt:document.hidden?performance.now():null,revision:next.revision};lastFrame=0;}
+  else if(changed){animation=null;clearTimeout(aiTimer);loadAim();}
+  update();queueDraw();
+}
+function displayedGame(){return animation?animation.before:match.game;}
+function update(){if(!match)return;const g=displayedGame(),actual=match.game,player=mode==='local'?actual.turn:me,networkOK=mode!=='peer'||connected&&channel?.readyState==='open';
+  const can=actual.winner===null&&!animation&&match.ready.every(Boolean)&&actual.turn===player&&networkOK&&$('handoff').hidden;
+  $('fire').disabled=!can;$('angle').disabled=!can;$('power').disabled=!can;$('fire').textContent=animation?'Shot in flight…':'Fire shot ↗';
+  $('p0').textContent=mode==='local'?'MOSS':me===0?'YOU · MOSS':'MOSS';$('p1').textContent=mode==='local'?'EMBER':mode==='solo'?'BOT · EMBER':me===1?'YOU · EMBER':'EMBER';
+  $('connection').textContent=mode==='peer'?(networkOK?'Connected directly · keep both tabs open':'Connection interrupted · play paused'):mode==='local'?'Two players · one phone':'Solo · no connection required';
+  $('status').textContent=!networkOK?'Connection interrupted. Play is paused.':animation?'Shot in flight. Watch it land.':actual.winner!==null?(actual.winner===2?'A draw. What a battle.':mode==='local'?names[actual.winner]+' wins!':actual.winner===me?'Victory. Well aimed!':names[actual.winner]+' wins this battle.'):!match.ready.every(Boolean)?'Waiting for the shot to finish on both phones…':mode==='local'?names[actual.turn]+'’s turn. Take your time.':actual.turn===me?'Your turn. Take your time.':names[actual.turn]+' is lining up a shot…';
+  $('substatus').textContent=animation?'Tanks stay still. Each shot plays out before the next turn.':actual.winner!==null?(mode==='peer'?'Both players choose Play again for a fresh battlefield.':'Choose Play again for a fresh battlefield.'):actual.shot?(actual.shot.damage.some(Boolean)?actual.shot.damage.map((d,i)=>d?names[i]+' −'+d+' armor':'').filter(Boolean).join(' · '):'No hit. Adjust your next shot.'):'Aim higher for a steeper arc. More power sends it farther.';
+  $('wind').textContent='WIND '+(g.wind===0?'CALM':g.wind<0?'← '+Math.abs(g.wind):g.wind+' →');$('turnLabel').textContent='SHOT '+actual.round+' · '+(mode==='local'?names[actual.turn]:names[me])+' tank';
+  g.tanks.forEach((t,i)=>{$('hp'+i).textContent=t.hp;$('bar'+i).style.width=t.hp+'%';});
+  $('rematch').hidden=actual.winner===null||!!animation;$('rematch').disabled=mode==='peer'&&(!networkOK||match.votes.includes(me));$('rematch').textContent=mode==='peer'&&match.votes.includes(me)?'Waiting for opponent…':'Play again';
+}
+function shoot(angle,power){const action={type:'action',revision:match.revision,angle,power};
+  if(mode==='peer'&&me===1){send(action);match={...match,ready:[false,false]};update();return;}
+  const actor=mode==='local'?match.game.turn:mode==='solo'?match.game.turn:me;
+  accept(applyShot(match,actor,action));if(mode==='peer')broadcast();
+}
+$('fire').onclick=()=>{if($('fire').disabled)return;try{shoot(+$('angle').value,+$('power').value);}catch(e){toast(e.message);}};
+for(const id of ['angle','power'])$(id).oninput=()=>{const player=mode==='local'?match.game.turn:me;lastAim[player][id]=+$(id).value;$(id+'Value').textContent=$(id).value+(id==='angle'?'°':'%');queueDraw();};
+function finishAnimation(){if(!animation||!match)return;const revision=animation.revision;animation=null;
+  if(mode==='peer'){
+    if(me===0){match=markReady(match,0,revision);broadcast();}else{try{send({type:'ready',revision});}catch{connected=false;}}
+  }else{match={...match,ready:[true,true]};if(match.game.winner===null){if(mode==='solo'&&match.game.turn===1){clearTimeout(aiTimer);aiTimer=setTimeout(ai,1200);}else if(mode==='local'){$('handoffTitle').textContent=names[match.game.turn]+'’s turn';$('handoff').hidden=false;}}}
+  loadAim();update();queueDraw();
+}
+$('takeTurn').onclick=()=>{$('handoff').hidden=true;loadAim();update();queueDraw();};
+function ai(){if(mode!=='solo'||!match||match.game.winner!==null||match.game.turn!==1)return;
+  const g=match.game;let best=[45,55],score=Infinity;
+  for(let angle=20;angle<=80;angle+=3)for(let power=25;power<=100;power+=3){const result=fire(g,angle,power),end=result.shot.path.at(-1),candidate=Math.abs(end[0]-g.tanks[0].x)+Math.random()*75;if(candidate<score){score=candidate;best=[angle,power];}}
+  try{shoot(...best);}catch(e){toast(e.message);}
+}
+$('rematch').onclick=()=>{try{if(mode==='peer'){if(me===0){accept(voteRematch(match,0));broadcast();}else{send({type:'rematch',revision:match.revision});$('rematch').disabled=true;}}else{match=newMatch();animation=null;enterBattle();}}catch(e){toast(e.message);}};
+function queueDraw(){if(!renderQueued){renderQueued=true;requestAnimationFrame(draw);}}
+function draw(now){renderQueued=false;if(!match||$('battle').hidden)return;
+  // Pause the animation clock while a tab is hidden. Returning never fast-forwards
+  // a volley, and the next turn waits until both phones finish their animation.
+  if(document.hidden){lastFrame=now;return;}
+  if(animation&&lastFrame&&now-lastFrame>100)animation.start+=now-lastFrame-34;lastFrame=now;
+  const c=$('arena'),r=c.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);if(!r.width||!r.height)return;
+  if(c.width!==Math.round(r.width*dpr)||c.height!==Math.round(r.height*dpr)){c.width=Math.round(r.width*dpr);c.height=Math.round(r.height*dpr);}
+  ctx.setTransform(c.width/960,0,0,c.height/450,0,0);
+  const elapsed=animation?Math.max(0,now-animation.start):0,flight=animation?Math.min(1,elapsed/SHOT_MS):0;
+  let g=displayedGame();if(animation&&elapsed>=SHOT_MS){const blend=Math.min(1,(elapsed-SHOT_MS)/IMPACT_MS);g={...animation.after,terrain:animation.after.terrain.map((y,i)=>animation.before.terrain[i]+(y-animation.before.terrain[i])*blend)};}
+  const sky=ctx.createLinearGradient(0,0,0,450);sky.addColorStop(0,'#233e50');sky.addColorStop(1,'#9aaf9f');ctx.fillStyle=sky;ctx.fillRect(0,0,960,450);ctx.fillStyle='#e5e8c9';ctx.beginPath();ctx.arc(730,85,35,0,7);ctx.fill();ctx.fillStyle='#63867b';ctx.beginPath();ctx.moveTo(0,450);for(let x=0;x<=960;x+=8)ctx.lineTo(x,245+Math.sin(x/170)*44+Math.sin(x/60)*10);ctx.lineTo(960,450);ctx.fill();
+  ctx.beginPath();ctx.moveTo(0,450);g.terrain.forEach((y,i)=>ctx.lineTo(i*4,y));ctx.lineTo(960,450);ctx.closePath();ctx.fillStyle='#9bab71';ctx.fill();ctx.save();ctx.clip();ctx.fillStyle='#566a4c';for(let i=0;i<120;i++){ctx.fillRect((i*337)%960,285+(i*83)%170,3,2);}ctx.restore();ctx.strokeStyle='#d2dc9e';ctx.lineWidth=3;ctx.beginPath();g.terrain.forEach((y,i)=>i?ctx.lineTo(i*4,y):ctx.moveTo(0,y));ctx.stroke();
+  g.tanks.forEach((t,i)=>{const y=g.terrain[Math.round(t.x/4)]-9;ctx.save();ctx.translate(t.x,y);ctx.fillStyle='#1c2d32';ctx.beginPath();ctx.roundRect(-23,-4,46,15,8);ctx.fill();ctx.fillStyle=i===0?'#d8f284':'#ff937d';ctx.beginPath();ctx.roundRect(-19,-12,38,15,4);ctx.fill();ctx.beginPath();ctx.arc(0,-12,11,Math.PI,0);ctx.fill();const current=mode==='local'?match.game.turn:me,a=(i===current?lastAim[i].angle:45)*Math.PI/180;ctx.strokeStyle=i===0?'#d8f284':'#ff937d';ctx.lineWidth=6;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(0,-13);ctx.lineTo((i===0?1:-1)*Math.cos(a)*27,-13-Math.sin(a)*27);ctx.stroke();ctx.restore();});
+  if(animation){const path=animation.path,position=flight*(path.length-1),index=Math.floor(position),a=path[index],b=path[Math.min(index+1,path.length-1)],t=position-index,x=a[0]+(b[0]-a[0])*t,y=a[1]+(b[1]-a[1])*t;
+    ctx.strokeStyle='#f0efd8aa';ctx.lineWidth=2;ctx.beginPath();path.slice(0,index+1).forEach(([px,py],i)=>i?ctx.lineTo(px,py):ctx.moveTo(px,py));ctx.lineTo(x,y);ctx.stroke();
+    ctx.fillStyle='#fff1ba';if(!REDUCED&&flight<1){ctx.beginPath();ctx.arc(Math.max(8,Math.min(952,x)),Math.max(58,y),5,0,7);ctx.fill();if(y<58){ctx.font='12px system-ui';ctx.fillText('↑',Math.max(8,Math.min(940,x-4)),79);}}
+    if(elapsed>=SHOT_MS&&animation.after.shot.impact){const progress=Math.min(1,(elapsed-SHOT_MS)/IMPACT_MS);ctx.globalAlpha=1-progress;ctx.fillStyle='#ffc988';ctx.beginPath();ctx.arc(x,y,12+progress*25,0,7);ctx.fill();ctx.globalAlpha=1;}
+    if(elapsed>=SHOT_MS+IMPACT_MS){finishAnimation();}else queueDraw();
+  }
+}
+new ResizeObserver(()=>{lastFrame=0;queueDraw();}).observe($('arena'));
+document.addEventListener('visibilitychange',()=>{lastFrame=performance.now();if(!document.hidden){if(animation)animation.start+=performance.now()-(animation.hiddenAt||performance.now());queueDraw();}else if(animation)animation.hiddenAt=performance.now();});
+window.addEventListener('beforeunload',e=>{if(mode==='peer'&&connected){e.preventDefault();e.returnValue='';}});
+</script></body></html>

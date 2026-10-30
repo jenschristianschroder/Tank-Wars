@@ -22,6 +22,8 @@ jobs:
         run: npm test
       - name: Build static game
         run: npm run build:pages
+      - name: Validate self-contained output
+        run: npm run validate
       - uses: actions/upload-pages-artifact@v3
         with:
           path: pages

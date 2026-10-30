@@ -1,25 +1,9 @@
-import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
-
-const projectRoot = resolve(fileURLToPath(new URL("..", import.meta.url)));
-const workerPath = resolve(projectRoot, "dist/server/index.js");
-const manifestPath = resolve(projectRoot, "dist/.openai/hosting.json");
-
-const [source, manifest] = await Promise.all([
-  readFile(workerPath, "utf8"),
-  readFile(manifestPath, "utf8"),
-]);
-JSON.parse(manifest);
-
-// A data URL forces ESM parsing even though the generated output has no package.json.
-const moduleUrl = `data:text/javascript;base64,${Buffer.from(source).toString("base64")}`;
-const workerModule = await import(moduleUrl);
-assert.equal(
-  typeof workerModule.default?.fetch,
-  "function",
-  `${pathToFileURL(workerPath)} must export default.fetch`,
-);
-
-console.log("Artifact is valid ESM and exports default.fetch");
+import {readFile} from 'node:fs/promises';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+const html=await readFile(new URL('../pages/index.html',import.meta.url),'utf8');
+const scripts=[...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)];
+assert.equal(scripts.length,2);
+for(const s of scripts)new vm.Script(s[1]);
+assert.ok(!/<script[^>]+src=|<link[^>]+href=|fetch\(|chatgpt\.site|\/api\//.test(html),'The static app must not depend on a game server or external assets.');
+console.log('Static game scripts parse; no game server or external assets.');

@@ -1,25 +1,36 @@
 # Tank Wars
 
-Phone-friendly, turn-based artillery for two players on separate devices. Plain HTML, canvas and JavaScript served by a Cloudflare Worker. A D1 database synchronizes invite rooms. No external JavaScript or artwork dependencies.
+A self-contained, turn-based artillery game in a single `index.html`. Hosted on GitHub Pages. No accounts, database, signaling service, multiplayer website, JavaScript libraries, or external assets.
 
-Create a room, share its code or invite URL, and have the second player join on their phone. Adjust angle and power; alternate shots until one tank loses its armor. Wind affects trajectories, near misses destroy terrain, and both players can request a rematch. Solo practice uses the same rules with a bot. Refreshing restores a seat from browser storage. Rooms expire after 24 hours.
+## Play
 
-The GitHub Pages app hosts solo practice and links online room creation/joining to the multiplayer Sites backend, which supplies shared match state. The Site begins private. Grant the opponent access or make it public through Site access settings before inviting another account.
+- **Two phones:** Host selects **Create invite** and sends the TW1 code to their friend through their usual messaging app. The friend selects **Join a friend**, pastes that invite, chooses **Create reply**, and sends the reply back. The host pastes the reply and chooses **Connect phones**. Keep both tabs open. WebRTC sends game messages directly between browsers.
+- **Pass & play:** Two players alternate on one phone. No network required after loading.
+- **Practice solo:** Play against a bot. No network required after loading.
+
+The tanks stay still. Players take turns choosing angle and power, with no timer. Every shot uses a smooth three-second animation and a gentle impact fade. The next turn waits for the animation to finish on both phones. Reduced-motion preferences hide the moving projectile. Switching tabs pauses the animation rather than fast-forwarding it when you return.
+
+## Connections and limitations
+
+**Internet assist is off by default.** In that mode there are no connection servers. Try both phones on the same Wi-Fi or hotspot. Browser and network restrictions may still prevent a direct connection, including some local connections.
+
+To try different networks, both players can enable **Internet assist** before pairing. This uses Google's public STUN service (`stun:stun.l.google.com:19302`) to discover network addresses. It is not a multiplayer backend: no game state or shots are sent to STUN. No TURN relay is provided, so connections through restrictive NATs, firewalls, guest Wi-Fi or mobile networks may fail. There is no guarantee of internet play without a relay. Use the same network or Pass & play if direct pairing fails.
+
+Codes include connection details and should only be shared with your opponent. The host browser owns the match and validates turn order, shot ranges and revisions. This is for friendly play, not cheat-resistant ranked competition. Closing or refreshing either tab ends the connection. Re-pairing starts a fresh match; there is no cloud save or automatic session recovery. No camera or microphone permissions are needed.
+
+## GitHub Pages
+
+https://jenschristianschroder.github.io/Tank-Wars/
+
+In **Settings → Pages**, select **GitHub Actions** as the source. `.github/workflows/pages.yml` runs the tests, copies the self-contained page and publishes every push to `main`. After first enabling Pages, rerun the workflow or push a commit. The earlier Sites-hosted backend is no longer used by this application.
 
 ## Development
 
-Requires Node 24 for the SQLite-based preview and tests. No dependencies to install.
+No dependencies to install. Use a modern browser with WebRTC data channel support. Node 24 is used by CI.
 
-- `npm run dev`: local preview, with a disposable in-memory database.
-- `npm test`: server rules, player authorization, concurrent shots, rematches and browser script syntax.
-- `npm run build && npm run validate`: build and validate the deployment.
+- `npm run dev`: static local server (localhost is suitable for local testing; use HTTPS for testing WebRTC on other devices).
+- `npm test`: shared rules, malformed input, pairing, duplicate actions, two-peer synchronization and turn/animation gating.
+- `npm run build:pages`: copy `index.html` into `pages/` with `.nojekyll`.
+- `npm run validate`: check built scripts and self-contained output.
 
-Source lives in `worker/index.js`; `dist/` is generated. Database migration is in `drizzle/`. The server is authoritative and uses version-checked writes to reject duplicate or stale actions. Room codes grant access to an unclaimed second seat; a random private token authorizes each player's subsequent actions. Do not share your browser's saved seat token. The game is intended for friendly play, with no ranked matchmaking or anti-bot system.
-
-## GitHub Pages deployment
-
-The `Deploy to GitHub Pages` workflow runs tests, builds a static game from the shared source, and publishes on every push to `main`. There are no dependencies to install.
-
-In **Settings → Pages**, select **GitHub Actions** as the source. Run the workflow manually after first enabling Pages, or push a commit. The expected URL is https://jenschristianschroder.github.io/Tank-Wars/ .
-
-`npm run build:pages` writes `pages/index.html` and `.nojekyll`. Solo practice runs directly on Pages. Online duel and Join open https://tank-wars.ambersage512.chatgpt.site/ with any room code preserved. The multiplayer site currently requires owner-granted access; publishing the Pages app does not make that backend public. Backend changes still need a separate Sites deployment.
+All runtime code and artwork are inline in `index.html`. Tests extract its inline scripts, so they exercise the same code that runs on phones. Downloading that one file preserves the local game; direct WebRTC behavior from a `file:` URL depends on the browser. GitHub Pages over HTTPS is recommended for two-phone play.
